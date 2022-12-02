@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class GeoConfig(AppConfig):
+class ChronologyConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "api.geo"
+    name = "api.chronology"

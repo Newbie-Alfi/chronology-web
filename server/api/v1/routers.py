@@ -1,6 +1,6 @@
 from django.urls import include, path
 
-from api.geo.v1 import routers
+from api.chronology.v1 import routers
 
 app_name = "api.v1"
 
