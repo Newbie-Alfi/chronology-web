@@ -23,7 +23,7 @@ class UserRegion(BaseRegion, models.Model):
 
 class Chronology(models.Model):
     name = models.CharField(max_length=64)
-    descrition = models.CharField(max_length=255)
+    descrition = models.CharField(max_length=255, null=True)
     creation_date = models.DateTimeField(auto_now=True)
     activity_date = models.DateTimeField(auto_now=True)
     is_public = models.BooleanField(default=True)
