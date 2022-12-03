@@ -43,13 +43,15 @@ class EventView(ModelViewSet):
 
     def get_queryset(self):
         chronology_id = self.kwargs.get("chronology_id")
-        chronology_events = Event.objects.filter(chronology_id=chronology_id)
+        chronology_events = Event.objects.filter(chronology_id=chronology_id).order_by(
+            "date"
+        )
         current_time = self.request.query_params.get("current_time")
 
         if current_time == None:
             current_time = chronology_events.order_by("date")[0].date
 
-        result = chronology_events.filter(end_date__lte=current_time)
+        result = chronology_events.filter(date__lte=current_time)
         return result
 
 
