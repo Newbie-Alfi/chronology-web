@@ -24,7 +24,7 @@ class EventSerializer(serializers.ModelSerializer):
             "id",
             "name",
             "description",
-            "start_date",
+            "date",
             "end_date",
             "region_id",
         )
@@ -36,7 +36,7 @@ class TimelineSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "name",
-            "start_date",
+            "date",
             "end_date",
         )
 
