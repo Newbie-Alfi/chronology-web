@@ -46,12 +46,12 @@ class EventView(ModelViewSet):
         chronology_events = Event.objects.filter(chronology_id=chronology_id).order_by(
             "date"
         )
-        current_time = self.request.query_params.get("current_time")
+        current_date = self.request.query_params.get("current_date")
 
-        if current_time == None:
-            current_time = chronology_events.order_by("date")[0].date
+        if current_date == None:
+            current_date = chronology_events.order_by("date")[0].date
 
-        result = chronology_events.filter(date__lte=current_time)
+        result = chronology_events.filter(date__lte=current_date)
         return result
 
 
