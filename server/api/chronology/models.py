@@ -23,6 +23,9 @@ class UserRegion(BaseRegion, models.Model):
 
 class Chronology(models.Model):
     name = models.CharField(max_length=64)
+    img = models.ImageField(
+        null=True, blank=True, upload_to="images/", verbose_name="Изображение"
+    )
     descrition = models.CharField(max_length=255, null=True, blank=True)
     creation_date = models.DateTimeField(auto_now=True)
     activity_date = models.DateTimeField(auto_now=True)

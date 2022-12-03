@@ -1,2 +1,3 @@
 # local settings
 local_settings.py
+media/images/*

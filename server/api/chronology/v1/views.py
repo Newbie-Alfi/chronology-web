@@ -12,7 +12,7 @@ from .serializer import (
 )
 
 
-class GeoPagination(PageNumberPagination):
+class BasePagination(PageNumberPagination):
     page_size = 3
     page_query_param = "page_size"
     max_page_size = 50
@@ -22,7 +22,7 @@ class RegionView(ReadOnlyModelViewSet):
     queryset = Region.objects.all()
     serializer_class = RegionSerializer
     permission_classes = (IsAuthenticated,)
-    pagination_class = GeoPagination
+    pagination_class = BasePagination
 
 
 class ChronologyView(ModelViewSet):
