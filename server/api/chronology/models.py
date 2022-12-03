@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class BaseRegion(models.Model):
     geom = models.GeometryField(srid=4326)
-    description = models.TextField(null=True)
+    description = models.TextField(null=True, blank=True)
     name = models.CharField(max_length=64)
 
     class Meta:
@@ -23,7 +23,7 @@ class UserRegion(BaseRegion, models.Model):
 
 class Chronology(models.Model):
     name = models.CharField(max_length=64)
-    descrition = models.CharField(max_length=255, null=True)
+    descrition = models.CharField(max_length=255, null=True, blank=True)
     creation_date = models.DateTimeField(auto_now=True)
     activity_date = models.DateTimeField(auto_now=True)
     is_public = models.BooleanField(default=True)
@@ -37,10 +37,12 @@ class Chronology(models.Model):
 
 class Event(models.Model):
     name = models.CharField(max_length=64)
-    description = models.TextField(null=True)
+    description = models.TextField(blank=True, null=True)
     date = models.DateField()
-    end_date = models.DateField(null=True)
-    region_id = models.ForeignKey(Region, on_delete=models.CASCADE, null=True)
+    end_date = models.DateField(blank=True, null=True)
+    region_id = models.ForeignKey(
+        Region, on_delete=models.CASCADE, blank=True, null=True
+    )
     chronology_id = models.ForeignKey(Chronology, on_delete=models.CASCADE)
 
     def __str__(self):
