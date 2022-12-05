@@ -21,7 +21,6 @@ class BasePagination(PageNumberPagination):
 class RegionView(ReadOnlyModelViewSet):
     queryset = Region.objects.all()
     serializer_class = RegionSerializer
-    permission_classes = (IsAuthenticated,)
     pagination_class = BasePagination
 
 
