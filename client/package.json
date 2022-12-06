@@ -11,6 +11,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@fontsource/public-sans": "^4.5.11",
     "@fontsource/roboto": "^4.5.8",
     "@mui/icons-material": "^5.10.9",
     "@mui/material": "^5.10.12",
@@ -18,7 +19,10 @@
     "mapbox-gl": "^2.10.0",
     "mobx": "^6.6.2",
     "mobx-react-lite": "^3.4.0",
+    "mobx-utils": "^6.0.5",
+    "moment": "^2.29.4",
     "react": "^18.2.0",
+    "react-chrono": "^1.19.2",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.3"
   },
