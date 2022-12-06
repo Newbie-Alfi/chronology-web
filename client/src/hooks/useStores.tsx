@@ -7,18 +7,19 @@ export const RootStoreContext = React.createContext<RootStore>(rootStore);
 
 interface MapContext {
   map?: Map;
-  setMap(map: Map): void;
+  // setMap(map: Map): void;
 }
 
 export const MapStoreContext = React.createContext<MapContext | undefined>(
   undefined
 );
 
-export const useStores = () => {
+export const useMap = () => {
   const map = useContext(MapStoreContext);
-  const stores = useContext(RootStoreContext);
 
-  if (!map) throw new Error("Map isn't initializated");
+  if (!map) {
+    throw new Error("Map isn't initializated! Define the MapContext");
+  }
 
-  return { ...stores, map };
+  return map;
 };

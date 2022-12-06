@@ -10,14 +10,15 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Link } from "react-router-dom";
-import { services } from "../API";
+import { services } from "../../API";
+import { Auth } from "../../API/v1/auth";
 
-export const SignInPage = () => {
+export default () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
 
-    await services.auth.signIn(data);
+    await Auth.signIn(data);
   };
 
   return (
@@ -71,7 +72,10 @@ export const SignInPage = () => {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link to="#">Forgot password?</Link>
+              {
+                // TODO:
+                /* <Link to="#">Forgot password?</Link> */
+              }
             </Grid>
             <Grid item>
               <Link to="../sign_up">{"Don't have an account? Sign Up"}</Link>

@@ -10,14 +10,14 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { services } from "../API";
+import { Auth } from "../../API/v1/auth";
 
-export const SignUpPage = () => {
+export default () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
 
-    services.auth.signUp(data);
+    Auth.signUp(data);
   };
 
   return (
