@@ -18,7 +18,6 @@ export interface IChronology {
   name: string;
   creation_date: Date;
   img: string;
-  // TODO: number??? is foreign key???
   user: number;
 }
 
