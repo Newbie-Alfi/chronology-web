@@ -6,9 +6,9 @@ app_name = "chronology"
 
 router = routers.SimpleRouter()
 
-router.register("geo", RegionView)
+router.register("region", RegionView)
 router.register("chronology", ChronologyView)
-router.register("region", UserRegionView)
+router.register("user-region", UserRegionView)
 router.register(
     r"timeline/(?P<chronology_id>\d+)", TimelineViewSet, basename="timeline"
 )
