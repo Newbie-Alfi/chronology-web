@@ -22,9 +22,10 @@ export interface IChronology {
 }
 
 export interface IRegion {
+  id: number;
   name: string;
   geom: Geometry;
-  isOptimazed: boolean;
+  // isOptimazed: boolean;
 }
 
 export interface User {
