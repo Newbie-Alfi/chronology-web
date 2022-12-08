@@ -43,10 +43,10 @@ class Event(models.Model):
     description = models.TextField(blank=True, null=True)
     date = models.DateField()
     end_date = models.DateField(blank=True, null=True)
-    region_id = models.ForeignKey(
-        Region, on_delete=models.CASCADE, blank=True, null=True
+    region = models.ForeignKey(
+        UserRegion, on_delete=models.CASCADE, blank=True, null=True
     )
-    chronology_id = models.ForeignKey(Chronology, on_delete=models.CASCADE)
+    chronology = models.ForeignKey(Chronology, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
