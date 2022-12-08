@@ -1,14 +1,8 @@
 import { Map } from "mapbox-gl";
 import React, { useContext } from "react";
-import { RootStore } from "../store";
-
-const rootStore = new RootStore();
-export const RootStoreContext = React.createContext<RootStore>(rootStore);
 
 interface MapContext {
-  map?: Map;
-  mapIsLoaded: boolean;
-  // setMap(map: Map): void;
+  map: Map;
 }
 
 export const MapStoreContext = React.createContext<MapContext | undefined>(

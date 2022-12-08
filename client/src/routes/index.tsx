@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Loader } from "../components/common/Loader/Loader";
 import { PATH } from "./constants";
 import { AboutPage } from "./pages/About";
 
@@ -12,7 +13,7 @@ const NotFoundPage = lazy(() => import("./pages/NotFound"));
 export const Router = () => {
   return (
     <BrowserRouter>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loader style={{ height: "100vh" }} />}>
         <Routes>
           <Route path={PATH.ABOUT}>
             <Route index element={<AboutPage />}></Route>

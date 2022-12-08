@@ -1,50 +1,40 @@
 import React, { CSSProperties, FC, useState, useEffect, useId } from "react";
 import { Map as MBMap, MapboxOptions } from "mapbox-gl";
 import { MapStoreContext } from "../hooks/useStores";
+import { Loader } from "./common/Loader/Loader";
 
 interface IMapComponent extends Omit<MapboxOptions, "container" | "style"> {
-  style: CSSProperties;
+  style?: CSSProperties;
   children?: React.ReactNode;
 }
 
 export const Map: FC<IMapComponent> = ({ style, children, ...props }) => {
   const mapRef = React.createRef<HTMLDivElement>();
   const [map, setMap] = useState<MBMap>();
-  const [mapIsLoaded, setMapLoading] = useState(false);
 
   useEffect(() => {
     if (!mapRef.current) return;
 
-    setMap(
-      new MBMap({
-        container: mapRef.current,
-        style: "mapbox://styles/mapbox/streets-v11",
-        ...props,
-      })
-    );
+    const initialMap = new MBMap({
+      container: mapRef.current,
+      style: "mapbox://styles/mapbox/streets-v11",
+      ...props,
+    });
+
+    setMap(initialMap);
 
     return () => map?.remove();
   }, []);
 
-  map?.on("load", () => setMapLoading(map?.loaded()));
-
-  // {
-  //   map?.on("load", () => {
-  //     if (map?.loaded()) {
-  //       return (
-  //         <div style={{ ...style, zIndex: 0 }} ref={mapRef}>
-  //           {children}
-  //         </div>
-  //       );
-  //     }
-  //   });
-  // }
-
   return (
     <div style={{ ...style, zIndex: 0 }} ref={mapRef}>
-      <MapStoreContext.Provider value={{ map, mapIsLoaded }}>
-        {mapIsLoaded && children}
-      </MapStoreContext.Provider>
+      {!!map ? (
+        <MapStoreContext.Provider value={{ map }}>
+          {children}
+        </MapStoreContext.Provider>
+      ) : (
+        <Loader />
+      )}
     </div>
   );
 };

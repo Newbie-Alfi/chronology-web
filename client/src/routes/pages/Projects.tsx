@@ -5,12 +5,9 @@ import { Grid, Typography } from "@mui/material";
 import { Container } from "@mui/material";
 import { v1 } from "../../API/v1";
 
-interface IProjectsProps {
-  allChronologies: IChronology[];
-  recentСhronologies: IChronology[];
-}
+interface IProjectsProps {}
 
-export default ({ allChronologies, recentСhronologies }: IProjectsProps) => {
+export default () => {
   const [chronology, setChronology] = useState<IChronology[]>();
 
   const getChronologies = async () => {

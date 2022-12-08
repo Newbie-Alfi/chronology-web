@@ -1,3 +1,4 @@
+import { Geometry } from "geojson";
 import { makeAutoObservable, runInAction, reaction } from "mobx";
 import { IEvent, ITimeline } from "../../API/models";
 import { v1 } from "../../API/v1";
@@ -6,64 +7,37 @@ export class PresentationStore {
   chronologyId: number;
   timeline: ITimeline[];
   currentDate: Date;
-  events: IEvent[];
   selectedEvent?: IEvent = undefined;
-  regions?: number[] = undefined;
+  regions?: Geometry = undefined;
 
-  constructor(
-    chronologyId: number,
-    currentDate: Date,
-    timeline: ITimeline[],
-    events: IEvent[]
-  ) {
+  constructor(chronologyId: number, currentDate: Date, timeline: ITimeline[]) {
     this.chronologyId = chronologyId;
     this.currentDate = currentDate;
     this.timeline = timeline;
-    this.events = events;
 
     reaction(
       () => this.currentDate,
       () => {
-        this.getEventsByCurrentDate();
-      }
-    );
-
-    reaction(
-      () => this.events,
-      () => {
-        this.getRegionsByRegionsId();
+        this.regionsOnMap();
       }
     );
 
     makeAutoObservable(this);
   }
 
-  // TODO:
   regionsOnMap = async () => {
-    return (
+    console.log("regionsOnMap");
+
+    const regions = (
       await v1.region.getCurrentMapState(this.chronologyId, {
         params: {
           current_date: this.currentDate,
         },
       })
     ).data;
-  };
-
-  private getEventsByCurrentDate = async () => {
-    const response = await v1.event.get(this.chronologyId, {
-      params: {
-        current_date: this.currentDate,
-      },
-    });
 
     runInAction(() => {
-      this.events = response.data.results;
+      this.regions = regions;
     });
-  };
-
-  private getRegionsByRegionsId = () => {
-    this.regions = this.events
-      .map((event) => event.region_id)
-      .filter((id) => !!id || id === 0);
   };
 }
