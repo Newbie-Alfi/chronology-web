@@ -1,15 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { App } from "./App";
-import "./assets/scss/base/reset.scss";
-import "mapbox-gl/dist/mapbox-gl.css";
-import "@fontsource/public-sans";
+import CssBaseline from "@mui/material/CssBaseline";
+import "./assets/scss/main.scss";
 import mapboxgl from "mapbox-gl";
+import { Router } from "./routes";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <App />
+    <CssBaseline />
+    <Router />
   </React.StrictMode>
 );
