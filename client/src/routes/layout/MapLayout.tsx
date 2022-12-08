@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Map } from "../../components/Map";
+import { Map } from "../../components/common/Map";
 
 interface MapLayoutProps {
   children: React.ReactNode;

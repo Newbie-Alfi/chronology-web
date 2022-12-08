@@ -1,7 +1,7 @@
 import React, { CSSProperties, FC, useState, useEffect, useId } from "react";
 import { Map as MBMap, MapboxOptions } from "mapbox-gl";
-import { MapStoreContext } from "../hooks/useStores";
-import { Loader } from "./common/Loader/Loader";
+import { MapStoreContext } from "../../hooks/useStores";
+import { Loader } from "./Loader/Loader";
 
 interface IMapComponent extends Omit<MapboxOptions, "container" | "style"> {
   style?: CSSProperties;

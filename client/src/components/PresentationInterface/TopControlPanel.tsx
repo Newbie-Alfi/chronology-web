@@ -2,12 +2,12 @@ import { observer } from "mobx-react-lite";
 import { FC, useEffect } from "react";
 import { usePresentation } from "../../contexts/PresentationContext";
 import { useMap } from "../../hooks/useStores";
-import ChronologyTimeline from "./ChronologyTimeline";
+import ChronologyTimeline from "./EventsSequence";
 import "./style.scss";
 
-interface TopInterfaceProps {}
+interface TopControlPanelProps {}
 
-export const TopInterface: FC<TopInterfaceProps> = observer(() => {
+export const TopControlPanel: FC<TopControlPanelProps> = observer(() => {
   const { presentationStore } = usePresentation();
   const { map } = useMap();
 

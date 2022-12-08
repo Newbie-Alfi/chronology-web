@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { PresentationContext } from "../../contexts/PresentationContext";
 import { TimelineStore } from "../../store/timeline";
 import { PresentationStore } from "../../store/presentation/presentation";
-import { TopInterface } from "./TopInterface";
+import { TopControlPanel } from "./TopControlPanel";
 import { Loader } from "../common/Loader/Loader";
 
 export const PresentationInterface = observer(() => {
@@ -28,7 +28,7 @@ export const PresentationInterface = observer(() => {
               ),
             }}
           >
-            <TopInterface></TopInterface>
+            <TopControlPanel></TopControlPanel>
           </PresentationContext.Provider>
         ),
         pending: () => <Loader />,
