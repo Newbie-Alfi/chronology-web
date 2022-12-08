@@ -1,10 +1,10 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { fromPromise, IPromiseBasedObservable } from "mobx-utils";
-import { EventsAPI } from "../API/v1/events";
+import { v1 } from "../API/v1";
 
 export class TimelineStore {
   timeline?: IPromiseBasedObservable<
-    Awaited<ReturnType<typeof EventsAPI.timeline>>
+    Awaited<ReturnType<typeof v1.event.timeline>>
   > = undefined;
 
   constructor(private chronologyId: string) {
@@ -15,7 +15,7 @@ export class TimelineStore {
 
   get = async () => {
     runInAction(() => {
-      this.timeline = fromPromise(EventsAPI.timeline(this.chronologyId));
+      this.timeline = fromPromise(v1.event.timeline(this.chronologyId));
     });
   };
 }

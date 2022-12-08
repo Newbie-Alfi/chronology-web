@@ -13,7 +13,7 @@ import moment from "moment";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import EditIcon from "@mui/icons-material/Edit";
 
-interface IProjectCardProps extends Omit<CardProps, "id"> {\
+interface IProjectCardProps extends Omit<CardProps, "id"> {
   // TODO:
   // | "sx"
   // sx?: Omit<Pick<CardProps, "sx">, "width">;

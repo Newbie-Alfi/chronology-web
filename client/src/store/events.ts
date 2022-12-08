@@ -1,9 +1,8 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { fromPromise, IPromiseBasedObservable } from "mobx-utils";
-import { EventsAPI } from "../API/v1/events";
-
+import { v1 } from "../API/v1";
 export class EventStore {
-  events?: IPromiseBasedObservable<Awaited<ReturnType<typeof EventsAPI.get>>> =
+  events?: IPromiseBasedObservable<Awaited<ReturnType<typeof v1.event.get>>> =
     undefined;
 
   constructor(private chronologyId: string) {
@@ -14,7 +13,7 @@ export class EventStore {
 
   get = async () => {
     runInAction(() => {
-      this.events = fromPromise(EventsAPI.get(this.chronologyId));
+      this.events = fromPromise(v1.event.get(this.chronologyId));
     });
   };
 }
