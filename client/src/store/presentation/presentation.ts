@@ -26,8 +26,6 @@ export class PresentationStore {
   }
 
   regionsOnMap = async () => {
-    console.log("regionsOnMap");
-
     const regions = (
       await v1.region.getCurrentMapState(this.chronologyId, {
         params: {

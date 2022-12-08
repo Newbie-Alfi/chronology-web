@@ -1,6 +1,5 @@
-import { Geometry } from "geojson";
 import { observer } from "mobx-react-lite";
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import { usePresentation } from "../../contexts/PresentationContext";
 import { useMap } from "../../hooks/useStores";
 import ChronologyTimeline from "./ChronologyTimeline";
@@ -29,8 +28,6 @@ export const TopInterface: FC<TopInterfaceProps> = observer(() => {
 
     const src = map.getSource("urban-areas");
     if (src === undefined) {
-      console.log(presentationStore.regions);
-
       map.addSource("urban-areas", {
         type: "geojson",
         data: presentationStore.regions,
