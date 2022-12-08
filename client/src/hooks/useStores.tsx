@@ -7,6 +7,7 @@ export const RootStoreContext = React.createContext<RootStore>(rootStore);
 
 interface MapContext {
   map?: Map;
+  mapIsLoaded: boolean;
   // setMap(map: Map): void;
 }
 

@@ -1,8 +1,9 @@
 import { newContext } from "../hooks/createContextHook";
+import { PresentationStore } from "../store/presentation/presentation";
 import { TimelineStore } from "../store/timeline";
 
 interface IPresentationContext {
-  timelineStore: TimelineStore;
+  presentationStore: PresentationStore;
 }
 
 export const [PresentationContext, usePresentation] =

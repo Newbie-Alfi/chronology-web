@@ -41,10 +41,10 @@ export const Map: FC<IMapComponent> = ({ style, children, ...props }) => {
   // }
 
   return (
-    <MapStoreContext.Provider value={{ map }}>
-      <div style={{ ...style, zIndex: 0 }} ref={mapRef}>
+    <div style={{ ...style, zIndex: 0 }} ref={mapRef}>
+      <MapStoreContext.Provider value={{ map, mapIsLoaded }}>
         {mapIsLoaded && children}
-      </div>
-    </MapStoreContext.Provider>
+      </MapStoreContext.Provider>
+    </div>
   );
 };

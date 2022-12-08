@@ -7,6 +7,7 @@ export interface ITimelineProps extends TimelineProps {}
 export const Timeline: FC<ITimelineProps> = ({
   mode = "HORIZONTAL",
   cardLess = true,
+  hideControls = true,
   theme,
   ...props
 }) => {
@@ -14,9 +15,10 @@ export const Timeline: FC<ITimelineProps> = ({
     <Chrono
       {...props}
       mode={mode}
+      hideControls={hideControls}
       cardLess={cardLess}
       theme={{
-        secondary: "transparent",
+        secondary: "#ffffffb0",
         cardBgColor: "#4a4a4a",
         cardForeColor: "white",
         titleColor: "transparent",

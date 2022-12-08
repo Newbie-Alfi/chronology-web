@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { IChronology } from "../../API/models";
-import { ChronologyAPI } from "../../API/v1/chronology";
 import { ProjectCard } from "../../components/ProjectCard";
 import { Grid, Typography } from "@mui/material";
 import { Container } from "@mui/material";
+import { v1 } from "../../API/v1";
 
 interface IProjectsProps {
   allChronologies: IChronology[];
@@ -14,7 +14,7 @@ export default ({ allChronologies, recentСhronologies }: IProjectsProps) => {
   const [chronology, setChronology] = useState<IChronology[]>();
 
   const getChronologies = async () => {
-    const response = await ChronologyAPI.get();
+    const response = await v1.chronology.get();
 
     setChronology(response?.data.results);
   };
