@@ -1,8 +1,6 @@
 import { CircularProgress } from "@mui/material";
 import { CSSProperties, FC } from "react";
 
-import "./style.scss";
-
 interface ILoaderProps {
   children?: React.ReactNode;
   style?: CSSProperties;
