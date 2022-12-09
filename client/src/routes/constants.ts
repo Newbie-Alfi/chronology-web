@@ -6,3 +6,10 @@ export const PATH = {
   SIGN_UP: "sign_up",
   NOT_FOUND: "*",
 };
+
+// TODO: режим так же будет в query
+// enum MODES {
+//   "EDIT",
+//   "VIEW",
+//   "CONTROL",
+// }
