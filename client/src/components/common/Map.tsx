@@ -17,6 +17,7 @@ export const Map: FC<IMapComponent> = ({ style, children, ...props }) => {
 
     const initialMap = new MBMap({
       container: mapRef.current,
+      dragRotate: false,
       style: "mapbox://styles/mapbox/streets-v11",
       ...props,
     });
