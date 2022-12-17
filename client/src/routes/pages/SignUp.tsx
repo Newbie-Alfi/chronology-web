@@ -110,7 +110,7 @@ export default () => {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link to={PATH.SIGN_IN}>Уже есть аккаунт?</Link>
+              <Link to={`/${PATH.SIGN_IN}`}>Уже есть аккаунт?</Link>
             </Grid>
           </Grid>
         </Box>
