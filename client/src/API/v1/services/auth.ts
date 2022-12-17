@@ -10,6 +10,6 @@ export class Auth {
   };
 
   signUp = async (user: FormData) => {
-    return $apiV1.post("token/", user);
+    return $apiV1.post("register/", user);
   };
 }
