@@ -1,14 +1,19 @@
 import mapboxgl from "mapbox-gl";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useMap } from "../../hooks/useStores";
+import { useMap } from "../../hooks";
 
 export const useMapViewInURL = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { map } = useMap();
 
   const cacheExtent = () => {
-    searchParams.set("extent", JSON.stringify(map.getBounds().toArray()));
+    const bbox = map
+      .getBounds()
+      .toArray()
+      .map((point) => point.map((coord) => Math.round(coord * 100) / 100));
+
+    searchParams.set("extent", JSON.stringify(bbox));
 
     setSearchParams(searchParams);
   };
