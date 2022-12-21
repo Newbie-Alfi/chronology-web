@@ -17,8 +17,30 @@ class Region(BaseRegion, models.Model):
 
 
 class UserRegion(BaseRegion, models.Model):
+    geom = models.GeometryField(srid=4326, blank=True, null=True)
+    region = models.ForeignKey(
+        Region, on_delete=models.CASCADE, blank=True, null=True
+    )
+
     def __str__(self):
         return self.name
+
+
+class Style(models.Model):
+    style = models.JSONField()
+    name = models.CharField(max_length=64)
+    user_region = models.ForeignKey(
+        UserRegion, on_delete=models.CASCADE, blank=True, null=True
+    )
+
+
+class RegionData(models.Model):
+    data = models.JSONField(blank=True, null=True)
+    style = models.ForeignKey(
+        Style, on_delete=models.CASCADE, blank=True, null=True)
+    user_region = models.ForeignKey(
+        UserRegion, on_delete=models.CASCADE, blank=True, null=True
+    )
 
 
 class Chronology(models.Model):
@@ -26,7 +48,7 @@ class Chronology(models.Model):
     img = models.ImageField(
         null=True, blank=True, upload_to="images/", verbose_name="Изображение"
     )
-    descrition = models.CharField(max_length=255, null=True, blank=True)
+    description = models.CharField(max_length=255, null=True, blank=True)
     creation_date = models.DateTimeField(auto_now=True)
     activity_date = models.DateTimeField(auto_now=True)
     is_public = models.BooleanField(default=True)
@@ -35,7 +57,7 @@ class Chronology(models.Model):
     )
 
     def __str__(self):
-        return self.name + " " + self.creation_date.strftime("%d.%m %H:%M")
+        return self.name
 
 
 class Event(models.Model):
@@ -43,8 +65,9 @@ class Event(models.Model):
     description = models.TextField(blank=True, null=True)
     date = models.DateField()
     end_date = models.DateField(blank=True, null=True)
-    region = models.ForeignKey(
-        UserRegion, on_delete=models.CASCADE, blank=True, null=True
+    event_data = models.JSONField(blank=True, null=True)
+    region_data = models.ForeignKey(
+        RegionData, on_delete=models.CASCADE, blank=True, null=True
     )
     chronology = models.ForeignKey(Chronology, on_delete=models.CASCADE)
 

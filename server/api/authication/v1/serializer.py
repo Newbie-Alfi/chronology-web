@@ -1,3 +1,4 @@
+import json
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
 from django.contrib.auth.models import User
@@ -11,9 +12,25 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def get_token(cls, user):
         token = super(MyTokenObtainPairSerializer, cls).get_token(user)
 
-        # Add custom claims
         token['username'] = user.username
+        token['pk'] = user.pk
+        token['first_name'] = user.first_name
+        token['last_name'] = user.last_name
         return token
+
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        refresh = self.get_token(self.user)
+
+        # TODO: бред, но я хз
+        data["user"] = json.loads(json.dumps({'username': self.user.username,  # type: ignore
+                                              'id': self.user.pk,  # type: ignore
+                                              'first_name': self.user.first_name,  # type: ignore
+                                              'last_name': self.user.last_name,  # type: ignore
+                                              }
+                                             ))
+
+        return data
 
 
 class RegisterSerializer(serializers.ModelSerializer):
