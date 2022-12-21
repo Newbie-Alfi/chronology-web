@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   CardActions,
   IconButton,
@@ -8,10 +8,11 @@ import {
   CardMedia,
   Card,
   CardProps,
+  CardActionArea,
 } from "@mui/material";
 import moment from "moment";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import EditIcon from "@mui/icons-material/Edit";
+import map from "../assets/images/map.png";
 
 interface IProjectCardProps extends Omit<CardProps, "id"> {
   // TODO:
@@ -21,7 +22,7 @@ interface IProjectCardProps extends Omit<CardProps, "id"> {
   id: number;
   name: string;
   date: Date;
-  imgSrc: string;
+  imgSrc: string | null;
 }
 
 export const ProjectCard: FC<IProjectCardProps> = ({
@@ -33,25 +34,29 @@ export const ProjectCard: FC<IProjectCardProps> = ({
   id,
   ...props
 }) => {
+  const navigate = useNavigate();
+
+  const toChrono = () => navigate(`./${id}/?mode=watch`);
+
   return (
     <Card {...props} sx={{ ...sx, border: "none", width: width }}>
-      {/* <CardActionArea> */}
-      <CardMedia
-        component="img"
-        height={width}
-        image={imgSrc}
-        alt={name}
-      ></CardMedia>
-      <CardContent sx={{ p: 1 }}>
-        <Typography gutterBottom variant="h6" component="h6" sx={{ m: 0 }}>
-          {name}
-        </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ p: 0 }}>
-          {moment(date).format("DD.MM.yyyy")}
-        </Typography>
-      </CardContent>
-      {/* </CardActionArea> */}
-      <CardActions sx={{ p: 1 }}>
+      <CardActionArea onClick={toChrono}>
+        <CardMedia
+          component="img"
+          height={width}
+          image={imgSrc || map}
+          alt={name}
+        ></CardMedia>
+        <CardContent sx={{ p: 2 }}>
+          <Typography gutterBottom variant="h6" component="h6" sx={{ m: 0 }}>
+            {name}
+          </Typography>
+          <Typography variant="subtitle2" color="text.secondary" sx={{ p: 0 }}>
+            {moment(date).format("DD.MM.yyyy")}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+      {/* <CardActions sx={{ p: 1 }}>
         <Link color="white" to={`./${id}/?mode=watch`}>
           <IconButton aria-label="Просмотр" size="small">
             <VisibilityIcon />
@@ -60,7 +65,7 @@ export const ProjectCard: FC<IProjectCardProps> = ({
         <IconButton aria-label="Редактировать" size="small">
           <EditIcon />
         </IconButton>
-      </CardActions>
+      </CardActions> */}
     </Card>
   );
 };

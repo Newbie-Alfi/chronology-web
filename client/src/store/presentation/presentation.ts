@@ -1,4 +1,4 @@
-import { Geometry } from "geojson";
+import { Geometry, GeoJSON, FeatureCollection } from "geojson";
 import { makeAutoObservable, runInAction, reaction } from "mobx";
 import { IEvent, ITimeline } from "../../API/models";
 import { v1 } from "../../API/v1";
@@ -8,7 +8,7 @@ export class PresentationStore {
   timeline: ITimeline[];
   currentDate: Date;
   selectedEvent?: IEvent = undefined;
-  regions?: Geometry = undefined;
+  regions?: FeatureCollection = undefined;
 
   constructor(chronologyId: number, currentDate: Date, timeline: ITimeline[]) {
     this.chronologyId = chronologyId;
@@ -18,14 +18,14 @@ export class PresentationStore {
     reaction(
       () => this.currentDate,
       () => {
-        this.regionsOnMap();
+        this.getCurrentRegions();
       }
     );
 
     makeAutoObservable(this);
   }
 
-  regionsOnMap = async () => {
+  getCurrentRegions = async () => {
     const regions = (
       await v1.region.getCurrentMapState(this.chronologyId, {
         params: {

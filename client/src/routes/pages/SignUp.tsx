@@ -22,7 +22,7 @@ export default () => {
 
       await v1.auth.signUp(data);
 
-      navigate(`../${PATH.SIGN_IN}`);
+      navigate(PATH.SIGN_IN);
     } catch (error) {}
   };
 

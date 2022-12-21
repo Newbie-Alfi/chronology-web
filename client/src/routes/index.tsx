@@ -15,19 +15,17 @@ export const Router = () => {
     <BrowserRouter>
       <Suspense fallback={<Loader style={{ height: "100vh" }} />}>
         <Routes>
-          <Route path={PATH.ABOUT}>
-            <Route index element={<AboutPage />}></Route>
-            <Route path={PATH.PROJECTS}>
-              <Route
-                path={PATH.CHRONOLOGY}
-                element={<PresentationPage />}
-              ></Route>
-              <Route index element={<ProjectListPage />} />
-            </Route>
-            <Route path={PATH.SIGN_IN} element={<SignInPage />}></Route>
-            <Route path={PATH.SIGN_UP} element={<SignUpPage />}></Route>
-            <Route path={PATH.NOT_FOUND} element={<NotFoundPage />}></Route>
+          <Route path={PATH.ABOUT} element={<AboutPage />}></Route>
+          <Route path={PATH.PROJECTS}>
+            <Route
+              path={PATH.CHRONOLOGY}
+              element={<PresentationPage />}
+            ></Route>
+            <Route index element={<ProjectListPage />} />
           </Route>
+          <Route path={PATH.SIGN_IN} element={<SignInPage />}></Route>
+          <Route path={PATH.SIGN_UP} element={<SignUpPage />}></Route>
+          <Route path={PATH.NOT_FOUND} element={<NotFoundPage />}></Route>
         </Routes>
       </Suspense>
     </BrowserRouter>

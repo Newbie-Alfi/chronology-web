@@ -10,7 +10,7 @@ export const useMapViewInURL = () => {
   const cacheExtent = () => {
     const bbox = map
       .getBounds()
-      .toArray()
+      ?.toArray()
       .map((point) => point.map((coord) => Math.round(coord * 100) / 100));
 
     searchParams.set("extent", JSON.stringify(bbox));
@@ -22,8 +22,12 @@ export const useMapViewInURL = () => {
   map.on("zoomend", cacheExtent);
 
   useEffect(() => {
-    const extent = JSON.parse(searchParams.get("extent") as string);
-    const bounds = new mapboxgl.LngLatBounds().extend(extent);
-    map.fitBounds(bounds);
+    const extent_json = searchParams.get("extent");
+
+    if (extent_json) {
+      const extent = JSON.parse(extent_json);
+      const bounds = new mapboxgl.LngLatBounds().extend(extent);
+      map.fitBounds(bounds);
+    }
   }, []);
 };

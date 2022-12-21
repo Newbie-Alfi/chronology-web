@@ -3,6 +3,7 @@ import { FC, useEffect } from "react";
 import { usePresentation } from "../../contexts/PresentationContext";
 import { useMap } from "../../hooks/useStores";
 import ChronologyTimeline from "./EventsSequence";
+// import mapboxgl from "mapbox-gl";
 import "./style.scss";
 
 interface TopControlPanelProps {}
@@ -16,9 +17,30 @@ export const TopControlPanel: FC<TopControlPanelProps> = observer(() => {
   };
 
   useEffect(() => {
+    // presentationStore.regions?.features.forEach((region) => {
+    console.log(map.getStyle().layers);
+    // TODO: переопределить типы geojson с бэкенда никогда не прилитит фича без id
+    // @ts-ignore
+    // map.clea;
+    //   const src = map.getSource(region.id);
+    //   if (src === undefined)
+    //     map.addLayer({
+    //       // @ts-ignore
+    //       id: region.id,
+    //       type: "fill",
+    //       source: {
+    //         type: "geojson",
+    //         data: region.geometry,
+    //       },
+    //       paint: {
+    //         "fill-color": "#f08",
+    //         "fill-opacity": 0.4,
+    //       },
+    //     });
+    // });
     const layers = map.getStyle().layers;
     // Find the index of the first symbol layer in the map style.
-    let firstSymbolId;
+    let firstSymbolId = "s";
     for (const layer of layers) {
       if (layer.type === "symbol") {
         firstSymbolId = layer.id;
@@ -35,7 +57,6 @@ export const TopControlPanel: FC<TopControlPanelProps> = observer(() => {
     } else {
       src.setData(presentationStore.regions);
     }
-
     map.addLayer(
       {
         id: "urban-areas-fill",

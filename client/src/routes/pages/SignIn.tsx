@@ -22,7 +22,7 @@ export default () => {
       const data = new FormData(e.currentTarget);
 
       await v1.auth.signIn(data);
-      navigate(`/${PATH.PROJECTS}`);
+      navigate(PATH.PROJECTS);
     } catch (e) {}
   };
 
