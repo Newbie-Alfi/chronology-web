@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  client:
+    build:
+      context: .
+      dockerfile: docker/client/Dockerfile.frontend.dev
+    image: chronology_client_dev
+    container_name: chronology_client_dev
+    volumes:
+      - ./client:/app # for hot-reload
+    ports:
+      - "3000:3000"
