@@ -1,22 +1,29 @@
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import { Link } from "react-router-dom";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
+import {
+  Avatar,
+  Button,
+  TextField,
+  Grid,
+  Box,
+  Typography,
+  Container,
+} from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
 import { v1 } from "../../API/v1";
+import { PATH } from "../constants";
 
 export default () => {
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const data = new FormData(e.currentTarget);
+  const navigate = useNavigate();
 
-    await v1.auth.signUp(data);
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    try {
+      e.preventDefault();
+      const data = new FormData(e.currentTarget);
+
+      await v1.auth.signUp(data);
+
+      navigate(PATH.SIGN_IN);
+    } catch (error) {}
   };
 
   return (
@@ -33,18 +40,17 @@ export default () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Регистрация
         </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
                 required
                 fullWidth
                 id="username"
-                label="Username"
+                label="Логин"
                 name="username"
-                autoComplete="username"
               />
             </Grid>
             <Grid item xs={12}>
@@ -52,9 +58,8 @@ export default () => {
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
+                label="Почта"
                 name="email"
-                autoComplete="email"
               />
             </Grid>
             <Grid item xs={12}>
@@ -62,30 +67,50 @@ export default () => {
                 required
                 fullWidth
                 name="password"
-                label="Password"
+                label="Пароль"
                 type="password"
                 id="password"
-                autoComplete="new-password"
               />
             </Grid>
             <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
+              <TextField
+                required
+                fullWidth
+                name="password2"
+                label="Повтор пароля"
+                type="password"
+                id="password2"
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                fullWidth
+                id="first_name"
+                label="Имя"
+                name="first_name"
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                fullWidth
+                id="last_name"
+                label="Фамилия"
+                name="last_name"
               />
             </Grid>
           </Grid>
+
           <Button
             type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Sign Up
+            Зарегистрироваться
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link to="../sign_in">Already have an account? Sign in</Link>
+              <Link to={`/${PATH.SIGN_IN}`}>Уже есть аккаунт?</Link>
             </Grid>
           </Grid>
         </Box>

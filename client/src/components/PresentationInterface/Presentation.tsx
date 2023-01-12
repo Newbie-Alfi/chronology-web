@@ -23,7 +23,7 @@ export const PresentationInterface = observer(() => {
             value={{
               presentationStore: new PresentationStore(
                 Number(chronologyId),
-                v.data.results[0].date,
+                v.data.results[0]?.date,
                 v.data.results
               ),
             }}

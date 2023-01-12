@@ -1,22 +1,29 @@
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
+import {
+  Avatar,
+  Button,
+  TextField,
+  Grid,
+  Box,
+  Typography,
+  Container,
+  FormControlLabel,
+  Checkbox,
+} from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { v1 } from "../../API/v1";
+import { PATH } from "../constants";
 
 export default () => {
+  const navigate = useNavigate();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const data = new FormData(e.currentTarget);
+    try {
+      e.preventDefault();
+      const data = new FormData(e.currentTarget);
 
-    await v1.auth.signIn(data);
+      await v1.auth.signIn(data);
+      navigate(PATH.PROJECTS);
+    } catch (e) {}
   };
 
   return (
@@ -33,7 +40,7 @@ export default () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Войти в аккаунт
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
@@ -41,9 +48,8 @@ export default () => {
             required
             fullWidth
             id="username"
-            label="Username Address"
+            label="Имя пользователя"
             name="username"
-            autoComplete="username"
             autoFocus
           />
           <TextField
@@ -51,14 +57,13 @@ export default () => {
             required
             fullWidth
             name="password"
-            label="Password"
+            label="Пароль"
             type="password"
             id="password"
-            autoComplete="current-password"
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
+            label="Запомнить меня"
           />
           <Button
             type="submit"
@@ -66,17 +71,14 @@ export default () => {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Sign In
+            Войти
           </Button>
           <Grid container>
-            <Grid item xs>
-              {
-                // TODO:
-                /* <Link to="#">Forgot password?</Link> */
-              }
-            </Grid>
+            <Grid item xs></Grid>
             <Grid item>
-              <Link to="../sign_up">{"Don't have an account? Sign Up"}</Link>
+              <Link to={`/${PATH.SIGN_UP}`}>
+                Ещё не зарегистрированы? Создать аккаунт...
+              </Link>
             </Grid>
           </Grid>
         </Box>

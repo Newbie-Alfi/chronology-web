@@ -6,8 +6,10 @@ from rest_framework.response import Response
 from drf_yasg.utils import swagger_auto_schema
 from django.db.models import Q
 
-from ..models import Chronology, Event, Region, UserRegion
+from ..models import Chronology, Event, Region, RegionData, UserRegion
 from .serializer import (
+    EventDataSerializer,
+    RegionDataSerializer,
     UserRegionSerializer,
     ChronologySerializer,
     RegionSerializer,
@@ -31,13 +33,31 @@ class RegionView(ReadOnlyModelViewSet):
 class ChronologyView(ModelViewSet):
     queryset = Chronology.objects.all()
     serializer_class = ChronologySerializer
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        user = self.request.query_params.get("user_id")
+        print(user)
+        chronology_events = Chronology.objects.filter(user=user).order_by(
+            "activity_date"
+        )
+
+        return chronology_events
+
+    @swagger_auto_schema(method='get')
+    @action(detail=False, methods=['get'], serializer_class=ChronologySerializer)
+    def get_public_chronologies(self, request):
+        search_string = request.query_params.get("search_string")
+        chronos = Chronology.objects.filter(
+            Q(is_public=True) & (Q(name__contains=search_string) | Q(description__contains=search_string)))
+        serializer = self.get_serializer(chronos, many=True)
+
+        return Response(serializer.data)
 
 
 class UserRegionView(ModelViewSet):
     queryset = UserRegion.objects.all()
     serializer_class = UserRegionSerializer
-    permission_classes = (IsAuthenticated,)
 
 
 class EventView(ModelViewSet):
@@ -59,15 +79,13 @@ class EventView(ModelViewSet):
         return result
 
     @swagger_auto_schema(method='get')
-    @action(detail=False, methods=['get'], serializer_class=UserRegionSerializer)
+    @action(detail=False, methods=['get'], serializer_class=EventDataSerializer)
     def get_regions(self, request, chronology_id):
-        regionsId = self.get_queryset().exclude(
-            region_id__isnull=True).values_list('region_id', flat=True)
+        events = self.get_queryset().exclude(
+            region_data__isnull=True)
+        serializer = self.get_serializer(events, many=True)
 
-        print(regionsId)
-        regions = UserRegion.objects.filter(pk__in=regionsId).all()
-
-        serializer = self.get_serializer(regions, many=True)
+        print(serializer.data)
 
         return Response(serializer.data)
 
